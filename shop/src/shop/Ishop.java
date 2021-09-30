@@ -1,0 +1,12 @@
+package shop;
+
+public interface Ishop {
+	void setTitle(String title);//public abstrackÀÌ »ý·«µÊ
+
+	void genUser();
+
+	void genProduct();
+
+	void start();
+
+}
