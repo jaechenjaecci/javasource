@@ -1,7 +1,5 @@
 package ClassText;
 
-import inheritance.Account2;
-
 public class AccountEx2 {
 
 	public static void main(String[] args) {
