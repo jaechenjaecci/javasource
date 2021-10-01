@@ -1,7 +1,92 @@
 package dept;
 
+import java.util.List;
+import java.util.Scanner;
+
 public class DeptMain {
-public static void main(String[] args) {
-	//ì•ˆë…•í•˜ì„¸ìš”
-}
+	public static void main(String[] args) {
+		boolean run = true;
+		Scanner sc = new Scanner(System.in);
+		DeptDAO dao = new DeptDAO();
+
+		while (run) {
+			System.out.println("*************************");
+			System.out.println("1. ÀüÃ¼ ºÎ¼­ Á¶È¸");
+			System.out.println("2. Æ¯Á¤ ºÎ¼­ Á¶È¸");
+			System.out.println("3. ºÎ¼­ Ãß°¡");
+			System.out.println("4. ºÎ¼­ ¼öÁ¤");
+			System.out.println("5. ºÎ¼­ »èÁ¦");
+			System.out.println("6. Á¾·á");
+			System.out.println("*************************");
+
+			System.out.print("¼±ÅÃ >> ");
+			int menu = sc.nextInt();
+
+			switch (menu) {
+			case 1:
+				List<DeptDTO> list = dao.getRows();
+				System.out.println("ºÎ¼­¹øÈ£\tºÎ¼­¸í\tÁö¿ª");
+				for (DeptDTO dto : list) {
+					System.out.print(dto.getDeptno() + "\t");
+					System.out.print(dto.getDname() + "\t");
+					System.out.println(dto.getLoc() + "\t");
+
+				}
+				System.out.println();
+				break;
+			case 2:
+				System.out.print("\nÁ¶È¸ ºÎ¼­ ¹øÈ£ ÀÔ·Â >> ");
+				int deptNo = sc.nextInt();
+
+				DeptDTO dto1 = dao.getRow(deptNo);
+				System.out.println("Á¶È¸ ³»¿ëÀº ´ÙÀ½°ú °°½À´Ï´Ù.");
+				System.out.println("ºÎ¼­¹øÈ£ : " + dto1.getDeptno());
+				System.out.println("ºÎ¼­¸í : " + dto1.getDname());
+				System.out.println("À§Ä¡ : " + dto1.getLoc());
+				System.out.println();
+
+				break;
+			case 3:
+				System.out.println("ºÎ¼­ Ãß°¡");
+				System.out.print("ºÎ¼­¹øÈ£ : ");
+				int newDeptNo = sc.nextInt();
+				System.out.print("ºÎ¼­¸í : ");
+				String newDname = sc.next();
+				System.out.print("Áö¿ª : ");
+				String newLoc = sc.next();
+				
+				DeptDTO dto = new DeptDTO(newDeptNo, newDname, newLoc);
+				System.out.println(dao.insert(dto)?"ºÎ¼­ ÀÔ·Â ¼º°ø":"½ÇÆÐ");
+				System.out.println();
+				
+				break;
+			case 4:
+				System.out.println("\nºÎ¼­ ¼öÁ¤");
+				System.out.print("¼öÁ¤ ºÎ¼­ ¹øÈ£ : ");
+				int updataDeptNo = sc.nextInt();
+				System.out.print("¼öÁ¤ ºÎ¼­¸í : ");
+				String updateDname = sc.next();
+				
+				System.out.println(dao.update
+						(updateDname, updataDeptNo)?"ºÎ¼­ ¼öÁ¤ ¼º°ø":"½ÇÆÐ");
+			System.out.println();
+				
+			break;
+			case 5:
+				System.out.println("\nºÎ¼­ »èÁ¦");
+				System.out.println("»èÁ¦ ºÎ¼­ ¹øÈ£ : ");
+				int removeDeptNo = sc.nextInt();
+						
+				System.out.println(dao.delete(removeDeptNo)?"ºÎ¼­ »èÁ¦ ¼º°ø":"½ÇÆÐ");
+				break;
+			case 6:
+				run = false;
+				break;
+
+			default:
+				System.out.println("¹øÈ£¸¦ È®ÀÎÇØ ÁÖ¼¼¿ä");
+				break;
+			}
+		}
+	}
 }
